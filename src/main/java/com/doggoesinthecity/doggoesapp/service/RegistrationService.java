@@ -14,12 +14,20 @@ public class RegistrationService {
     UserRepository userRepository;
 
     public void newUserRegistration(@RequestBody RegisterForm registerForm){
-        User newUser = User.builder()
-                .email(registerForm.getEmail())
-                .password(registerForm.getPassword())
-                .username(registerForm.getUsername())
-                .build();
 
-        userRepository.save(newUser);
+        if (userRepository.findByEmail(registerForm.getEmail()) != null){
+            System.out.println("You are already registered whit this email!");
+        }
+        if (userRepository.findByUsername(registerForm.getUsername()) != null){
+            System.out.println("This username already exist!");
+        } else {
+            User newUser = User.builder()
+                    .email(registerForm.getEmail())
+                    .password(registerForm.getPassword())
+                    .username(registerForm.getUsername())
+                    .build();
+            userRepository.save(newUser);
+        }
+
     }
 }
