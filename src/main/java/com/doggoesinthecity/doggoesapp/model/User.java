@@ -5,10 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -22,7 +22,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
+    @NotEmpty
     String username;
+
+    @NotEmpty
     String email;
+
+    @NotEmpty
     String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 }
