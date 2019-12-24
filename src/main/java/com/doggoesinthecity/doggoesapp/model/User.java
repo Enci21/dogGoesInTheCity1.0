@@ -13,23 +13,24 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Table
 @Data
 @Entity
 @Builder
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     @NotEmpty
-    String username;
+    private String username;
 
     @NotEmpty
-    String email;
+    private String password;
 
     @NotEmpty
-    String password;
+    private String email;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
