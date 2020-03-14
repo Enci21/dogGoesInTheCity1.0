@@ -12,9 +12,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -32,23 +32,27 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity signin(@RequestBody UserCredentials data) {
+    public ResponseEntity signin(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
             String username = data.getUsername();
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            List<String> roles = authentication.getAuthorities().stream()
+            List<String> roles = authentication
+                    .getAuthorities()
+                    .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
             String token = jwtTokenServices.createToken(username, roles);
+            Cookie cookie = new Cookie("token", token);
+            cookie.setMaxAge(60 * 60 * 24);
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
 
-            Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
-            model.put("roles", roles);
-            model.put("token", token);
-            return ResponseEntity.ok(model);
+            response.addCookie(cookie);
+            return ResponseEntity.ok("");
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
+
     }
 }
