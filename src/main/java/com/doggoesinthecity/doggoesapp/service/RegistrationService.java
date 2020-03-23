@@ -25,20 +25,19 @@ public class RegistrationService {
     }
 
     public void newUserRegistration(@RequestBody RegisterForm registerForm) throws RuntimeException {
-
         if (userRepository.findByEmail(registerForm.getEmail()).isPresent()) {
             throw new RuntimeException("You already registered with this email!");
-        } else if (userRepository.findByUsername(registerForm.getUsername()).isPresent()) {
-            throw new RuntimeException("Username already exist!");
-        } else {
-            User newUser = User.builder()
-                    .email(registerForm.getEmail())
-                    .password(passwordEncoder.encode(registerForm.getPassword()))
-                    .username(registerForm.getUsername())
-                    .roles(Arrays.asList("ROLE_USER"))
-                    .build();
-            userRepository.save(newUser);
+        }
+        if (!registerForm.getPassword().equals(registerForm.getPwagain())) {
+            throw new RuntimeException("Nem egyeznek a jelszavak!");
         }
 
+        User newUser = User.builder()
+                .email(registerForm.getEmail())
+                .password(passwordEncoder.encode(registerForm.getPassword()))
+                .username(registerForm.getFirstname() + " " + registerForm.getLastname())
+                .roles(Arrays.asList("ROLE_USER"))
+                .build();
+        userRepository.save(newUser);
     }
 }
