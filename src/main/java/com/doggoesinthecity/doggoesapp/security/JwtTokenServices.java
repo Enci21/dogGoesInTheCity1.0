@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
@@ -48,36 +49,30 @@ public class JwtTokenServices {
                 .compact();
     }
 
-    String getTokenFromRequest(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
+    String getTokenFromCookie(HttpServletRequest req) {
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("token")) {
+                    return c.getValue();
+                }
+            }
         }
         return null;
     }
 
-    // checks if the token is valid and not expired.
     boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser()
                     .setSigningKey(secretKey)
                     .parseClaimsJws(token);
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-            return true;
+            return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             log.debug("JWT token invalid " + e);
         }
         return false;
     }
 
-    /**
-     * Parses the username and roles from the token. Since the token is signed we can be sure its valid information.
-     * Note that it does not make a DB call to be super fast!
-     * This could result in returning false data (e.g. the user was deleted, but their token has not expired yet)
-     * To prevent errors because of this make sure to check the user in the database for more important calls!
-     */
 
     Authentication parseUserFromTokenInfo(String token) throws UsernameNotFoundException {
         Claims body = Jwts.parser()
@@ -92,6 +87,5 @@ public class JwtTokenServices {
         }
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
-
 
 }
