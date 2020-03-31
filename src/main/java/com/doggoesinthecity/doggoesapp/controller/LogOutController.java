@@ -18,6 +18,5 @@ public class LogOutController {
     @PutMapping("/logout")
     public void logOut(HttpServletRequest req) {
         logOutService.logOut(req);
-
     }
 }
