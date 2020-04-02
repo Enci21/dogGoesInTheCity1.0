@@ -35,7 +35,7 @@ public class RegistrationService {
         User newUser = User.builder()
                 .email(registerForm.getEmail())
                 .password(passwordEncoder.encode(registerForm.getPassword()))
-                .username(registerForm.getFirstname() + " " + registerForm.getLastname())
+                .username(registerForm.getUsername())
                 .roles(Arrays.asList("ROLE_USER"))
                 .build();
         userRepository.save(newUser);
