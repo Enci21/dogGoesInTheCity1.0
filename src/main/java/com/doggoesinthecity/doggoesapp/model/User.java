@@ -13,14 +13,14 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Table
+@Table(name = "users")
 @Data
 @Entity
 @Builder
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
