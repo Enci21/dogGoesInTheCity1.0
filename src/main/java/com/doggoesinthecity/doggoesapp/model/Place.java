@@ -29,9 +29,7 @@ public class Place {
     @NotEmpty
     private String openingHours;
 
-    private String rating;
-
     @NotEmpty
-    private Integer number;
+    private String number;
 
 }

@@ -19,7 +19,6 @@ public class PlaceService {
                 .name(data.getName())
                 .number(data.getNumber())
                 .openingHours(data.getOpeningHours())
-                .rating(data.getRating())
                 .build();
         placeRepository.save(place);
     }

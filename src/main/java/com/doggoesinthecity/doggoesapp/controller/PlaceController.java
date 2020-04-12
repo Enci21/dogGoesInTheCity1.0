@@ -17,4 +17,5 @@ public class PlaceController {
     public void addNewPlace(@RequestBody Place data) {
         placeService.addPlace(data);
     }
+
 }
