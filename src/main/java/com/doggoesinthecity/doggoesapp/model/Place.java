@@ -24,12 +24,30 @@ public class Place {
     private String name;
 
     @NotEmpty
-    private String address;
+    private String street;
 
     @NotEmpty
-    private String openingHours;
+    private String building;
 
     @NotEmpty
+    private String city;
+
+    @NotEmpty
+    private String state;
+
+    @NotEmpty
+    private String postalCode;
+
+    @NotEmpty
+    private String country;
+
+    @NotEmpty
+    private String openingHoursFrom;
+
+    @NotEmpty
+    private String openingHoursTo;
+
+
     private String number;
 
 }

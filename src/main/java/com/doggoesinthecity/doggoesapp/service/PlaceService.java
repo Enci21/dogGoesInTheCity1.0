@@ -15,10 +15,16 @@ public class PlaceService {
     public void addPlace(Place data) {
 
         Place place = Place.builder()
-                .address(data.getAddress())
                 .name(data.getName())
+                .street(data.getStreet())
+                .building(data.getBuilding())
+                .city(data.getCity())
+                .state(data.getState())
+                .postalCode(data.getPostalCode())
+                .country(data.getCountry())
+                .openingHoursFrom(data.getOpeningHoursFrom())
+                .openingHoursTo(data.getOpeningHoursTo())
                 .number(data.getNumber())
-                .openingHours(data.getOpeningHours())
                 .build();
         placeRepository.save(place);
     }
