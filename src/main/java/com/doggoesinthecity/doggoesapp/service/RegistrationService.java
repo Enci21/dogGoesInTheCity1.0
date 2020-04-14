@@ -28,8 +28,11 @@ public class RegistrationService {
         if (userRepository.findByEmail(registerForm.getEmail()).isPresent()) {
             throw new RuntimeException("You already registered with this email!");
         }
+        if (userRepository.findByUsername(registerForm.getUsername()).isPresent()) {
+            throw new RuntimeException("Username already in use!");
+        }
         if (!registerForm.getPassword().equals(registerForm.getPwagain())) {
-            throw new RuntimeException("Nem egyeznek a jelszavak!");
+            throw new RuntimeException("Passwords do not match!");
         }
 
         User newUser = User.builder()
