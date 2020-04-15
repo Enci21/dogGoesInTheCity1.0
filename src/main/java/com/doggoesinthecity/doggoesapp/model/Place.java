@@ -23,6 +23,9 @@ public class Place {
     @NotEmpty
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private Type type;
+
     @NotEmpty
     private String street;
 
@@ -35,8 +38,7 @@ public class Place {
     @NotEmpty
     private String state;
 
-    @NotEmpty
-    private String postalCode;
+    private Integer postalCode;
 
     @NotEmpty
     private String country;
@@ -46,7 +48,6 @@ public class Place {
 
     @NotEmpty
     private String openingHoursTo;
-
 
     private String number;
 

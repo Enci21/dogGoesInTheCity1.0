@@ -16,6 +16,7 @@ public class PlaceService {
 
         Place place = Place.builder()
                 .name(data.getName())
+                .type(data.getType())
                 .street(data.getStreet())
                 .building(data.getBuilding())
                 .city(data.getCity())
