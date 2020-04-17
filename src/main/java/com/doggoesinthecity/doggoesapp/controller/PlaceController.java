@@ -26,7 +26,11 @@ public class PlaceController {
     @GetMapping("/types")
     public List sendTypes() {
         return new ArrayList(Arrays.asList(Type.values()));
+    }
 
+    @GetMapping("/all")
+    public List sendAllPlace() {
+        return placeService.allPlace();
     }
 
 }

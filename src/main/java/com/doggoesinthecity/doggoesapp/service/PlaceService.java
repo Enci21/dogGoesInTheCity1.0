@@ -5,6 +5,8 @@ import com.doggoesinthecity.doggoesapp.repositories.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PlaceService {
 
@@ -28,5 +30,9 @@ public class PlaceService {
                 .number(data.getNumber())
                 .build();
         placeRepository.save(place);
+    }
+
+    public List allPlace() {
+        return placeRepository.findAll();
     }
 }
