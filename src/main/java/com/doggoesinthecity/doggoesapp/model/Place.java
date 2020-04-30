@@ -43,9 +43,10 @@ public class Place {
     @NotEmpty
     private String country;
 
-
+    @NotEmpty
     private String openingHoursFrom;
 
+    @NotEmpty
     private String openingHoursTo;
 
     private String number;
