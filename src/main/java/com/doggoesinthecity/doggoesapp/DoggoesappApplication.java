@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import java.util.Map;
 import java.util.Properties;
 
 
@@ -34,7 +35,8 @@ public class DoggoesappApplication {
     @Bean
     public JavaMailSender mailSender() {
         final String username = "doggoesinthecity@gmail.com";
-        final String password = "vxmvkjsfgyghxlcw";
+        final Map<String, String> mailPassword = System.getenv();
+        final String password = mailPassword.get("MAIL_PASSWORD");
 
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");

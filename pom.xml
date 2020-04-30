@@ -80,6 +80,7 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>RELEASE</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>

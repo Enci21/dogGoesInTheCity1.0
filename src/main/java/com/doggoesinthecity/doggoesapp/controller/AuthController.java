@@ -5,7 +5,6 @@ import com.doggoesinthecity.doggoesapp.repositories.UserRepository;
 import com.doggoesinthecity.doggoesapp.security.JwtTokenServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -32,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity signin(@RequestBody UserCredentials data, HttpServletResponse response) {
+    public ResponseEntity signin(@RequestBody UserCredentials data, HttpServletResponse response) throws Exception {
         try {
             String username = data.getUsername();
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
@@ -51,7 +50,7 @@ public class AuthController {
             response.addCookie(cookie);
             return ResponseEntity.ok("");
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
+            throw new Exception("Invalid username/password supplied");
         }
 
     }
