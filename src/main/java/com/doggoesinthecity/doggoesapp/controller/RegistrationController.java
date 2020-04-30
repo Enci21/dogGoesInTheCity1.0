@@ -17,7 +17,7 @@ public class RegistrationController {
     RegistrationService registrationService;
 
     @PostMapping("/registration")
-    public void registrationPage(@RequestBody RegisterForm registerForm){
+    public void registrationPage(@RequestBody RegisterForm registerForm) throws Exception {
         registrationService.newUserRegistration(registerForm);
     }
 }
