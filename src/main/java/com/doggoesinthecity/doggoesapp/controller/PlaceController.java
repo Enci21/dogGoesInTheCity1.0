@@ -19,13 +19,17 @@ public class PlaceController {
     PlaceService placeService;
 
     @PostMapping("/new")
-    public void addNewPlace(@RequestBody Place data) {
+    public void addNewPlace(@RequestBody Place data) throws Exception {
         placeService.addPlace(data);
     }
 
     @GetMapping("/types")
-    public List sendTypes() {
-        return new ArrayList(Arrays.asList(Type.values()));
+    public List sendTypes() throws Exception {
+        try {
+            return new ArrayList(Arrays.asList(Type.values()));
+        } catch (NullPointerException e) {
+            throw new Exception("Something went wrong :(");
+        }
     }
 
     @GetMapping("/all")
