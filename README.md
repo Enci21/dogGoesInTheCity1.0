@@ -1,4 +1,3 @@
-# dogGoesInTheCity1.0
 # DogGoesInTheCity
 
 ![DogGoesInTheCityLogo](https://i.imgur.com/GI30aDT.png)
